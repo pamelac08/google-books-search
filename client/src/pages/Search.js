@@ -32,7 +32,7 @@ class Search extends Component {
     fetch(
       "https://www.googleapis.com/books/v1/volumes?q=" +
         url +
-        "&key=AIzaSyAqIljwk46su4UlDt1rKgR6GHK3-omNP-8"
+        ""
     )
       .then((res) => res.json())
       .then((result) => {
