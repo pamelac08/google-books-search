@@ -4,12 +4,12 @@
 
 .navbar-brand {
     color: whitesmoke;
-    font-weight: bold;
-    font-size: 1.5rem;
+    font-weight: bolder;
+    font-size: 1.6rem;
 }
 
 .nav-link {
-    color: black;
+    color: white;
 }
 
 .navbar-toggler-icon {
