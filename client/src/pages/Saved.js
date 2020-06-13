@@ -6,7 +6,7 @@ import { List, ListItem } from "../components/List";
 
 class Saved extends Component {
   state = {
-    books: []
+    books: [],
   };
 
   componentDidMount() {
@@ -39,29 +39,38 @@ class Saved extends Component {
               <div className="card-body">
                 {this.state.books.map((book) => (
                   <ListItem key={book._id}>
-                      <div className="title-div">
-                        <p><strong>{book.title} </strong></p>
-                        <p>Written by:&nbsp; 
-                          {book.authors.map((author, index) => {
-                            if (index === book.authors.length - 1) {
-                              return <span>{author}</span>
-                            } else {
-                               return <span>{author},&nbsp;</span>
-                            }
+                    <div className="title-div">
+                      <p className="title">
+                        <strong>{book.title} </strong>
+                      </p>
+                      <p className="author">
+                        Written by:&nbsp;
+                        {book.authors.map((author, index) => {
+                          if (index === book.authors.length - 1) {
+                            return <span>{author}</span>;
+                          } else {
+                            return <span>{author},&nbsp;</span>;
                           }
-                          )}</p>
-                      </div>
-                    
+                        })}
+                      </p>
+                    </div>
+
                     <div className="card mb-3 image-description-div">
                       <div className="row no-gutters">
                         <div className="col-md-4">
-
-                          {(book.image) ?
-                             <img src={book.image} className="card-img" alt="..." />
-                            : 
-                            <img src="https://via.placeholder.com/150" className="card-img" alt="..." />
-                          }
-
+                          {book.image ? (
+                            <img
+                              src={book.image}
+                              className="card-img"
+                              alt="..."
+                            />
+                          ) : (
+                            <img
+                              src="https://via.placeholder.com/150"
+                              className="card-img"
+                              alt="..."
+                            />
+                          )}
                         </div>
                         <div className="col-md-8">
                           <div className="card-body">
@@ -72,9 +81,9 @@ class Saved extends Component {
                     </div>
 
                     <div className="buttons">
-                        <ViewBtn href={book.link} ></ViewBtn>
-                        <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                      </div>
+                      <ViewBtn href={book.link}></ViewBtn>
+                      <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    </div>
                   </ListItem>
                 ))}
               </div>

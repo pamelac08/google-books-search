@@ -23,8 +23,6 @@ class Search extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
 
-    console.log("input: ", this.state.title);
-
     let url = this.state.title;
 
     fetch("https://www.googleapis.com/books/v1/volumes?q=" + url)
@@ -36,10 +34,6 @@ class Search extends Component {
         });
       });
   };
-
-  componentDidUpdate() {
-    console.log("books:", this.state.books);
-  }
 
   saveBook = (book) => {
     let saveBook = {};
@@ -61,8 +55,6 @@ class Search extends Component {
         link: book.volumeInfo.infoLink,
       };
     }
-
-    console.log("saveBook: ", saveBook);
 
     API.saveBook(saveBook)
       .then((res) => console.log(res.data))
