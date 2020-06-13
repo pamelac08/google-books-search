@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import SaveButton from "../components/SaveButton";
 import ViewBtn from "../components/ViewButton";
 import API from "../utils/API";
-// import { Link } from "react-router-dom";
-// import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, FormBtn } from "../components/Form";
 
@@ -31,15 +29,14 @@ class Search extends Component {
 
     fetch(
       "https://www.googleapis.com/books/v1/volumes?q=" +
-        url +
-        ""
+        url
     )
       .then((res) => res.json())
       .then((result) => {
-        this.setState({
-          books: result.items,
-          title: "",
-        });
+          this.setState({
+            books: result.items,
+            title: "",
+          });
       });
   };
 
@@ -48,13 +45,25 @@ class Search extends Component {
   }
 
   saveBook = (book) => {
-    let saveBook = {
+    let saveBook = {};
+
+    if (book.volumeInfo.imageLinks) {
+    saveBook = {
       title: book.volumeInfo.title,
       description: book.volumeInfo.description,
       authors: book.volumeInfo.authors,
       image: book.volumeInfo.imageLinks.smallThumbnail,
       link: book.volumeInfo.infoLink,
     };
+  } else {
+    saveBook = {
+      title: book.volumeInfo.title,
+      description: book.volumeInfo.description,
+      authors: book.volumeInfo.authors,
+      image: "",
+      link: book.volumeInfo.infoLink,
+    };
+  }
 
     console.log("saveBook: ", saveBook);
 
@@ -92,13 +101,25 @@ class Search extends Component {
                   <ListItem key={book.id}>
                     <div className="title-div">
                         <p><strong>{book.volumeInfo.title}</strong></p>
-                        <p>Written by: {book.volumeInfo.authors}</p>
+                        <p>Written by:&nbsp; 
+                          {book.volumeInfo.authors.map((author, index) => {
+                            if (index === book.volumeInfo.authors.length - 1) {
+                              return <span>{author}</span>
+                            } else {
+                               return <span>{author},&nbsp;</span>
+                            }
+                          }
+                          )}</p>
                       </div>
 
                       <div className="card mb-3 image-description-div">
                       <div className="row no-gutters">
                         <div className="col-md-4">
-                          <img src={book.volumeInfo.imageLinks.smallThumbnail} className="card-img" alt="..." />
+                          {(book.volumeInfo.imageLinks) ?
+                            <img src={book.volumeInfo.imageLinks.smallThumbnail} className="card-img" alt="..." />
+                            : 
+                            <img src="https://via.placeholder.com/150" className="card-img" alt="..." />
+                          }
                         </div>
                         <div className="col-md-8">
                           <div className="card-body">

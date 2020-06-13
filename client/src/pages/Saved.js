@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteButton";
 import ViewBtn from "../components/ViewButton";
 import API from "../utils/API";
-// import { Link } from "react-router-dom";
 import { List, ListItem } from "../components/List";
-// import SaveButton from "../components/SaveButton";
 
 class Saved extends Component {
   state = {
@@ -43,13 +41,27 @@ class Saved extends Component {
                   <ListItem key={book._id}>
                       <div className="title-div">
                         <p><strong>{book.title} </strong></p>
-                        <p>Written by: {book.authors}</p>
+                        <p>Written by:&nbsp; 
+                          {book.authors.map((author, index) => {
+                            if (index === book.authors.length - 1) {
+                              return <span>{author}</span>
+                            } else {
+                               return <span>{author},&nbsp;</span>
+                            }
+                          }
+                          )}</p>
                       </div>
                     
                     <div className="card mb-3 image-description-div">
                       <div className="row no-gutters">
                         <div className="col-md-4">
-                          <img src={book.image} className="card-img" alt="..." />
+
+                          {(book.image) ?
+                             <img src={book.image} className="card-img" alt="..." />
+                            : 
+                            <img src="https://via.placeholder.com/150" className="card-img" alt="..." />
+                          }
+
                         </div>
                         <div className="col-md-8">
                           <div className="card-body">
